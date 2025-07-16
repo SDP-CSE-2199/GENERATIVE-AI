@@ -1,0 +1,118 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/SDP-CSE-2199/GENERATIVE-AI/blob/main/task4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "gQy-eQz5w2bj"
+      },
+      "outputs": [],
+      "source": [
+        "text = \"\"\"\n",
+        "In the heart of the forest, where sunlight filters through the leaves, a quiet breeze carries the scent of pine and earth.\n",
+        "Birdsong echoes from tree to tree, and the rustling of small creatures stirs the underbrush.\n",
+        "A narrow trail winds between mossy stones and tangled roots, inviting the curious to explore deeper into nature's calm embrace.\n",
+        "\"\"\"\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "words = text.strip().split()\n",
+        "\n",
+        "markov_chain = {}\n",
+        "for current, next_ in zip(words[:-1], words[1:]):\n",
+        "    if current not in markov_chain:\n",
+        "        markov_chain[current] = []\n",
+        "    markov_chain[current].append(next_)\n"
+      ],
+      "metadata": {
+        "id": "OVe6TZGuxX-c"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "xioQAdaQ2XXj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import random\n",
+        "\n",
+        "def generate_text(chain, start_word, length=20):\n",
+        "    word = start_word\n",
+        "    output = [word]\n",
+        "    for _ in range(length):\n",
+        "        next_words = chain.get(word)\n",
+        "        if not next_words:\n",
+        "            break\n",
+        "        word = random.choice(next_words)\n",
+        "        output.append(word)\n",
+        "    return ' '.join(output)\n"
+      ],
+      "metadata": {
+        "id": "hSMoas_pxaf8"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "start_word = random.choice(list(markov_chain.keys()))\n",
+        "generated = generate_text(markov_chain, start_word)\n",
+        "print(\"Generated Text:\\n\", generated)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "arKY3va3xemA",
+        "outputId": "57cb8890-66c1-449e-a378-0a6532fa3fc0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Generated Text:\n",
+            " filters through the scent of small creatures stirs the underbrush. A narrow trail winds between mossy stones and the rustling of\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
